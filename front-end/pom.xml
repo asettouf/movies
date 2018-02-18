@@ -9,6 +9,13 @@
 	<name>front-end</name>
 	<url>http://maven.apache.org</url>
 
+	<repositories>
+<!-- 	Repository for non released springboot which uses Spring 5.x -->
+		<repository>
+			<id>springboot</id>
+			<url>http://repo.spring.io/milestone/</url>
+		</repository>
+	</repositories>
 	<parent>
 		<groupId>org.test.barna</groupId>
 		<artifactId>parent</artifactId>
@@ -28,7 +35,7 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-		
+
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>

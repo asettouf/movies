@@ -1,16 +1,43 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Spring Boot Thymeleaf Hello World Example</title>
+<title>Movies INC</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <link rel="stylesheet" type="text/css"
 	href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 
 
-
 </head>
 <body>
-<p>It rocks</p>
+	<h1>Welcome</h1>
+	<h2>Score selection</h2>
+	<span th:if="${getMessage}" th:text="'Message: ' + ${getMessage}"></span>
+	<form action="#" th:action="@{/score}" method="get">
+		ScoreId: <input type="number" name="id"></input><br /> 
+		<input type="submit" value="Submit"></input>
+	</form>
+	<br />
+	<h2>Score creation</h2>
+	<span th:if="${createMessage}" th:text="'Message: ' + ${createMessage}"></span>
+	<form action="#" th:action="@{/score}" th:method="put">
+		Value: <input type="number" name="value"></input><br /> <input
+			type="submit" value="Submit"></input>
+	</form>
+	
+	<h2>Score deletion</h2>
+	<span th:if="${delMessage}" th:text="'Message: ' + ${delMessage}"></span>
+	<form action="#" th:action="@{/score}" th:method="delete">
+		Id: <input type="number" name="id"></input><br/> <input
+			type="submit" value="Submit"></input>
+	</form>
+	
+	<h2>Score update</h2>
+	<span th:if="${updMessage}" th:text="'Message: ' + ${updMessage}"></span>
+	<form action="#" th:action="@{/score}" method="post">
+		Id: <input type="number" name="id"></input> <br/>
+		Value: <input type="number" name="value"></input><br/> <input
+			type="submit" value="Submit"></input>
+	</form>
 </body>
 </html>
