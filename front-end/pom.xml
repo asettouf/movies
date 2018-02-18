@@ -9,13 +9,6 @@
 	<name>front-end</name>
 	<url>http://maven.apache.org</url>
 
-	<repositories>
-<!-- 	Repository for non released springboot which uses Spring 5.x -->
-		<repository>
-			<id>springboot</id>
-			<url>http://repo.spring.io/milestone/</url>
-		</repository>
-	</repositories>
 	<parent>
 		<groupId>org.test.barna</groupId>
 		<artifactId>parent</artifactId>
@@ -67,9 +60,20 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>org.test.barna.main.MainRunner</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
