@@ -1,28 +1,34 @@
 package org.test.barna.controllers;
 
-import java.util.Map;
+import java.text.MessageFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.test.Entities.Score;
 import org.test.back.dao.ScoreDao;
 
-@Controller
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@RestController
 public class ScoreController {
 
 	@Autowired
 	ScoreDao scoreDao;
-
-
+	
+	@Autowired
+	ObjectMapper objectMapper;
+	
+	//quick JSON formatted message to indicate success or not for POST/PUT/DELETE
+	//responses
+	String messageStringTemplate = "'{'message: {0}'}'";
 
 	@RequestMapping("/score")
 	public String getScore(
-			@RequestParam(value = "id", required = false) Integer id,
-			Map<String, Object> model) {
+			@RequestParam(value = "id", required = false) Integer id) throws JsonProcessingException {
 		if (id == null) {
 			return "score";
 		}
@@ -30,17 +36,14 @@ public class ScoreController {
 		// we don't need the `intValue` call, it is just to explicit the
 		// autounboxing
 		Score score = scoreDao.getById(id.intValue());
-		model.put("getMessage",
-				"Score " + score == null ? "not found" : score + "found");
-		System.out.println(score);
-		return "score";
+		return objectMapper.writeValueAsString(score);
+//		return MessageFormat.format(this.messageStringTemplate, "Got score " + score);
 
 	}
 
-	@RequestMapping(value="/score", method=RequestMethod.DELETE)
+	@RequestMapping(value = "/score", method = RequestMethod.DELETE)
 	public String delScore(
-			@RequestParam(value = "id", required = false) Integer id,
-			Map<String, Object> model) {
+			@RequestParam(value = "id", required = false) Integer id) {
 		if (id == null) {
 			return "score";
 		}
@@ -52,31 +55,27 @@ public class ScoreController {
 			message = "Score " + scoreToDelete + " deleted";
 
 		}
-		model.put("delMessage", message);
-		return "score";
+		return MessageFormat.format(this.messageStringTemplate, message);
 
 	}
 
 	@RequestMapping(value = "/score", method = RequestMethod.PUT)
-	public String createScore(@RequestParam(value = "value") Integer value,
-			Map<String, Object> model) {
+	public String createScore(@RequestParam(value = "value") Integer value) {
 		if (value == null) {
-			return "score";
+			return MessageFormat.format(this.messageStringTemplate, "Cannot create score with null values");
 		}
 		System.out.println("Create score with value" + value);
 		Score score = new Score(value);
 		scoreDao.save(score);
-		model.put("createMessage", "Score " + score + " created");
-		return "score";
+		return MessageFormat.format(this.messageStringTemplate, score + " Created");
 
 	}
 
 	@RequestMapping(value = "/score", method = RequestMethod.POST)
 	public String updateScore(@RequestParam(value = "id") Integer id,
-			@RequestParam(value = "value") Integer value, Map<String, Object> model) {
+			@RequestParam(value = "value") Integer value) {
 		if (value == null || id == null) {
-			model.put("updMessage", "We need a value and an id!");
-			return "score";
+			return MessageFormat.format(this.messageStringTemplate, "Cannot update score with null values");
 		}
 		Score scoreToUpdate = scoreDao.getById(id);
 		String message = "Score not found. Cannot update";
@@ -85,8 +84,7 @@ public class ScoreController {
 			scoreDao.update(scoreToUpdate);
 			message = "Score " + scoreToUpdate + " updated";
 		}
-		model.put("updMessage", message);
-		return "score";
+		return MessageFormat.format(this.messageStringTemplate, message);
 
 	}
 
