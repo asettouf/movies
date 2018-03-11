@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Movies</title>
+  </head>
+    <body>
+
+      <h1>Get a Score by ID</h1>
+      <form name="getScore">
+        Id: <input type="number" name="scoreId">
+        <input id="getScore" type="submit" value="Submit">
+      </form>
+      <h1>Update a Score by ID</h1>
+      <form name="postScore">
+        Id: <input type="number" name="scoreId">
+        Value: <input type="number" name="scoreValue">
+        <input id="postScore" type="submit" value="Submit">
+      </form>
+      <h1>Create a Score </h1>
+      <form name="putScore">
+        Value: <input type="number" name="scoreValue">
+        <input id="putScore" type="submit" value="Submit">
+      </form>
+      <h1>Delete a Score by ID</h1>
+      <form name="delScore">
+        Id: <input type="number" name="scoreId">
+        <input id="delScore" type="submit" value="Submit">
+      </form>
+      <p id="score-msg"></p>
+      <script
+  			  src="https://code.jquery.com/jquery-3.3.1.js"
+  			  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  			  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+    </body>
+</html>

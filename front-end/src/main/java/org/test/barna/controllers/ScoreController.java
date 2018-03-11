@@ -42,10 +42,9 @@ public class ScoreController {
 	}
 
 	@RequestMapping(value = "/score", method = RequestMethod.DELETE)
-	public String delScore(
-			@RequestParam(value = "id", required = false) Integer id) {
+	public String delScore(@RequestParam(value = "id") Integer id) {
 		if (id == null) {
-			return "score";
+			return MessageFormat.format(this.messageStringTemplate, "Cannot delete score with null id");
 		}
 		Score scoreToDelete = scoreDao.getById(id);
 		String message = "Score not found cannot delete";
