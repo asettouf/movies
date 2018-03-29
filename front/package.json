@@ -1,0 +1,15 @@
+{
+  "name": "front",
+  "version": "1.0.0",
+  "description": "New front",
+  "main": "html/index.html",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Adonis Settouf",
+  "license": "MIT"
+}

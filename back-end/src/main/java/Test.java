@@ -19,7 +19,7 @@ public class Test {
     	  new ClassPathXmlApplicationContext("spring.xml");
 		ScoreDao scoreDao = (ScoreDao) appContext.getBean("ScoreDao");
 		Score score = new Score(3);
-//		scoreDao.save(score);
+		scoreDao.save(score);
 		System.out.println("Score is " + scoreDao.getById(2).getScore());
 //		score.setScore(5);
 //		scoreDao.update(score);

@@ -1,3 +1,5 @@
+const BASE_URL="http://localhost:8080";
+
 $(document).ready(function() {
 	console.log("Document loaded");
 	$("#getScore").click(getScore);
@@ -13,7 +15,7 @@ var getScore = function(event) {
 		alert("You need to enter an id");
 		return false;
 	}
-	$.get("/score", {
+	$.get(BASE_URL + "/score", {
 		id : scoreId
 	}, function(data) {
 		console.log(data);
@@ -29,7 +31,7 @@ var postScore = function(event) {
 		alert("You need to enter an id and/or a value");
 		return false;
 	}
-	$.post("/score", {
+	$.post(BASE_URL + "/score", {
 		id : scoreId,
 		value : scoreValue,
 	}, function(data) {
@@ -46,7 +48,7 @@ var putScore = function(event) {
 		return false;
 	}
 	$.ajax({
-		url: "/score", 
+		url: BASE_URL + "/score",
 		type: "PUT",
 		data: {
 		value : scoreValue
@@ -65,7 +67,7 @@ var delScore = function(event) {
 		return false;
 	}
 	$.ajax({
-		url: "/score?" + $.param({"id": scoreId})  , 
+		url: BASE_URL + "/score?" + $.param({"id": scoreId})  ,
 		type: "DELETE",
 		success: function(data) {
 		console.log(data);
